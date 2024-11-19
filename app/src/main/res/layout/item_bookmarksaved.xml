@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:padding="16dp"
+android:background="?attr/selectableItemBackground">
+
+<com.google.android.material.imageview.ShapeableImageView
+    android:id="@+id/articleImage"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:scaleType="centerCrop"
+    app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"/>
+
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="8dp">
+
+    <TextView
+        android:id="@+id/categoryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Europe"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:maxLines="2"
+        android:ellipsize="end"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/sourceIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"/>
+
+        <TextView
+            android:id="@+id/sourceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textSize="12sp"
+            android:textColor="#757575"/>
+
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"
+            android:textColor="#757575"/>
+    </LinearLayout>
+</LinearLayout>
+
+<ImageButton
+    android:id="@+id/moreButton"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_gravity="center_vertical"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:src="@drawable/ic_more"
+    app:tint="#757575"/>
+
+</LinearLayout>
