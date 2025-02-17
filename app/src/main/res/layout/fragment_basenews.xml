@@ -43,34 +43,40 @@
                 android:text="All"/>
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/sportsTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sports"/>
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/politicsTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Politics"/>
+                android:text="Entertainment"/>
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/businessTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Business"/>
 
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/healthTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Health"/>
 
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/travelTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Travel"/>
+                android:text="Technology"/>
 
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/scienceTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Science"/>
@@ -81,11 +87,21 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="appbar_scrolling_view_behavior"/>
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 
