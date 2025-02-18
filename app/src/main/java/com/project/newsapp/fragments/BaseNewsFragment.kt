@@ -71,22 +71,15 @@ class BaseNewsFragment : Fragment() {
 
 
        // setupSwipeRefresh()
-        /*swipeRefreshLayout.setOnRefreshListener {
-            refreshData()
-        }*/
         swipeRefreshLayout.setOnRefreshListener {
             val currentCategory = tabLayout.getTabAt(tabLayout.selectedTabPosition)?.text.toString()
             newsViewModel.getBaseNewsRefresh(currentCategory, "us", isRefreshing = true)
         }
 
         //observe base news categories for refreshing
-        /*newsViewModel.baseNewsRefresh.observe(viewLifecycleOwner) { newsResponse ->
-            newsAdapter.submitList(newsResponse.articles)
-            swipeRefreshLayout.isRefreshing = false
-        }*/
         newsViewModel.baseNewsRefresh.observe(viewLifecycleOwner) { articles ->
             newsAdapter.submitList(articles) // TODO : Added code here
-           // swipeRefreshLayout.isRefreshing = false // Stop refresh animation
+
         }
 
 

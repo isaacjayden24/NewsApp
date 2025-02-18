@@ -10,15 +10,6 @@ interface NewsApi {
 
 
 //search for top news{headlines}
-   /* @GET("/v2/top-headlines")
-    suspend fun getBaseNews(
-        @Query("country") countryCode:String="us",
-        @Query("page") pageNumber:Int=1,
-        @Query("apiKey") apiKey:String=API_KEY
-
-    ):NewsResponse*/
-
-    //search for top news{headlines}
     @GET("/v2/top-headlines")
     suspend fun getBaseNews(
         @Query("country") countryCode:String="us",
@@ -32,14 +23,6 @@ interface NewsApi {
 
 
     // search for top news by refresh
-   /* @GET("/v2/top-headlines")
-    suspend fun getBaseNewsRefresh(
-        @Query("country") countryCode:String="us",
-        @Query("page") page:Int, // TODO : FIX THIS
-        @Query("apiKey") apiKey:String=API_KEY
-
-    ):NewsResponse*/
-
     @GET("/v2/top-headlines")
     suspend fun getBaseNewsRefresh(
         @Query("category") category: String,

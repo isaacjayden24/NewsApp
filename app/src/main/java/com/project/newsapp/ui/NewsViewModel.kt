@@ -29,9 +29,6 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
     val searchNews: LiveData<NewsResponse> get() = _searchNews
 
     //live data for news base refreshing
-    /*private val _baseNewsRefresh = MutableLiveData<NewsResponse>()
-    val baseNewsRefresh: LiveData<NewsResponse> get() = _baseNewsRefresh*/
-
     private val _baseNewsRefresh = MutableLiveData<List<Article>>()
     val baseNewsRefresh: LiveData<List<Article>> = _baseNewsRefresh
 
@@ -46,6 +43,8 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
     var baseNewsPageSize=20 //remain constant for all request
     var isLoading = false
     private var currentArticles = mutableListOf<Article>()
+
+    private var currentArticlesRefresh= mutableListOf<Article>()
 
 
 
@@ -100,11 +99,11 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
                 val updatedArticles = if (isRefreshing) {
                     response.articles // Replace with fresh data
                 } else {
-                    currentArticles + response.articles // Append to existing list
+                    currentArticlesRefresh + response.articles // Append to existing list
                 }
 
                 _baseNewsRefresh.postValue(updatedArticles) // Post new list to LiveData
-                currentArticles = updatedArticles.toMutableList() // Update stored list
+                currentArticlesRefresh = updatedArticles.toMutableList() // Update stored list
 
                 baseNewsPageNumber++ // Increase page number for next request
             } catch (e: Exception) {
