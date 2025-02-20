@@ -14,24 +14,31 @@ import com.project.newsapp.R
 import com.project.newsapp.models.Article
 
 
-class NewsAdapter
-    : ListAdapter<Article, NewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
-
-
-        // declare setonitemclicklistener here
-        private var onItemClickListener: ((Article) -> Unit)? = null
-    fun setOnItemClickListener(listener: (Article) -> Unit) {
-        onItemClickListener = listener
-    }
+ class SavedNewsAdapter
+     : ListAdapter<Article, SavedNewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
 
 
 
-    //long click listener for saving articles
-    private var onItemLongClickListener: ((Article) -> Unit)? = null
 
-    fun setOnItemLongClickListener(listener: (Article) -> Unit) {
-        onItemLongClickListener = listener
-    }
+         // declare setonitemclicklistener here for opening article in external browser
+         private var onItemClickListener: ((Article) -> Unit)? = null
+
+         fun setOnItemClickListener(listener: (Article) -> Unit) {
+         onItemClickListener = listener
+          }
+
+
+         private var onItemLongClickListener: ((Article) -> Unit)? = null
+          fun setOnItemLongClickListener(listener: (Article) -> Unit) {
+                onItemLongClickListener = listener
+          }
+
+
+
+
+
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
@@ -77,17 +84,19 @@ class NewsAdapter
             publishedAtTimeText.text = article.publishedAt
 
 
-            itemView.setOnClickListener(){
-               // onItemClickListener?.let { it(article) }
-                onItemClickListener?.invoke(article)
 
+            itemView.setOnClickListener(){
+                onItemClickListener?.let { it(article) }
             }
 
-            // Set a long click listener for saving articles
+
+
             itemView.setOnLongClickListener {
                 onItemLongClickListener?.invoke(article)
                 true
             }
+
+
 
 
 

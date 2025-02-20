@@ -4,6 +4,10 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
 
     alias(libs.plugins.kotlin.kapt) apply false
+   // alias(libs.plugins.androidx.navigation.safe.args) apply false
+
+
 
 
 }
+

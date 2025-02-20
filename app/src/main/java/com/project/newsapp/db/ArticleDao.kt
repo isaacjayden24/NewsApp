@@ -1,6 +1,5 @@
 package com.project.newsapp.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -18,7 +17,7 @@ interface ArticleDao {
 
     //function to get all articles in Room
     @Query("SELECT * FROM articles")
-    fun getAllArticles(): LiveData<List<Article>>
+    suspend fun getAllArticles(): List<Article>
 
     //function to delete an article in Room
     @Delete

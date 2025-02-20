@@ -19,6 +19,8 @@ navigationUiKtx = "2.8.4"
 roomRuntime = "2.6.1"
 room="2.6.1"
 
+navigationSafeArgs = "2.8.4"  # Use the same version as your Navigation dependencies
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
@@ -46,3 +48,7 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+
+androidx-navigation-safe-args = { id = "androidx.navigation.safeargs", version.ref = "navigationSafeArgs" }
+
+

@@ -1,5 +1,7 @@
 package com.project.newsapp.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,7 +26,6 @@ import com.project.newsapp.ui.NewsViewModelFactory
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
 
 
 /**
@@ -64,6 +66,28 @@ class SearchNewsFragment : Fragment() {
 
         searchEditText=view.findViewById(R.id.searchNews)
         recyclerView = view.findViewById(R.id.searchRecyclerView)
+        setUpRecyclerView()
+
+
+        // news adapter for when news item is clicked it opens on an external browser
+        newsAdapter.setOnItemClickListener { article ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
+            startActivity(intent)
+        }
+
+
+
+        // long press the article to save it
+        newsAdapter.setOnItemLongClickListener { article->
+            newsViewModel.insertArticle(article)
+            Toast.makeText(requireContext(), "Saved: ${article.title}", Toast.LENGTH_SHORT).show()
+
+        }
+
+        //handle clicks on news items
+        newsAdapter.setOnItemClickListener { article ->
+            Toast.makeText(requireContext(), "Clicked: ${article.title}", Toast.LENGTH_SHORT).show()
+        }
 
 
         val spinner: Spinner = view.findViewById(R.id.spinner)
@@ -89,7 +113,7 @@ class SearchNewsFragment : Fragment() {
         }
 
 
-        setUpRecyclerView()
+
 
 
 
@@ -138,5 +162,7 @@ class SearchNewsFragment : Fragment() {
 
 
     }
+
+
 
 }

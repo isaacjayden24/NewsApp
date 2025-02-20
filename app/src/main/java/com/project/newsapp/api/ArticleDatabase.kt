@@ -9,7 +9,7 @@ import com.project.newsapp.db.ArticleDao
 import com.project.newsapp.db.Converters
 import com.project.newsapp.models.Article
 
-@Database( entities = [Article::class], version = 1, exportSchema = false)
+@Database( entities = [Article::class], version = 2, exportSchema = false)
 
 @TypeConverters(Converters::class)
 
@@ -31,7 +31,9 @@ import com.project.newsapp.models.Article
            context.applicationContext,
            ArticleDatabase::class.java,
            "article_db.db"
-          ).build()
+          ).fallbackToDestructiveMigration() // This will delete and recreate the database
+              .build()
+
 
 
         }

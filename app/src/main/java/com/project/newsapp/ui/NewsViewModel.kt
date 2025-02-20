@@ -32,6 +32,11 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
     private val _baseNewsRefresh = MutableLiveData<List<Article>>()
     val baseNewsRefresh: LiveData<List<Article>> = _baseNewsRefresh
 
+    //live data for fetching all articles from database
+    private  val _allArticles=MutableLiveData<List<Article>>()
+    val allArticles:LiveData<List<Article>>
+        get()= _allArticles
+
 
     private val _isRefreshing = MutableLiveData<Boolean>()
     val isRefreshing: LiveData<Boolean> = _isRefreshing
@@ -56,7 +61,7 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
 
 
 
-    // function to fetch base news
+    // function to fetch base news from API
 
     fun getBaseNews(countryCode: String) {
 
@@ -81,7 +86,7 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
     }
 
 
-    // function to fetch base news with refresh
+    // function to fetch base news with refresh from API
     fun getBaseNewsRefresh(categorySearch: String, countryCode: String, isRefreshing: Boolean = false) {
         if (isLoading) return
 
@@ -118,7 +123,7 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
 
 
 
-    //function to fetch base news with category
+    //function to fetch base news with category from API
     fun getBaseNewsCategory(countryCode: String,category:String) {
         viewModelScope.launch {
             try {
@@ -134,7 +139,7 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
         }
     }
 
-    //function to fetch the search news results
+    //function to fetch the search news results  from API
     fun searchNews(searchQuery:String) {
         viewModelScope.launch {
             try {
@@ -147,7 +152,7 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
         }
     }
 
-    //function to fetch search news sorting
+    //function to fetch search news sorting from API
     fun searchNewsSorting(searchQuery: String, sortBy: String){
         viewModelScope.launch {
             try {
@@ -159,6 +164,39 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
             }
             }
     }
+
+
+
+
+    // function to insert news article
+    fun insertArticle(article: Article) {
+        viewModelScope.launch {
+            newsRepository.insertArticle(article)
+        }
+    }
+
+    //function to delete news article
+    fun deleteArticle(article: Article) {
+        viewModelScope.launch {
+            newsRepository.deleteArticle(article)
+            getAllArticles()
+        }
+
+    }
+
+    //function to get all news articles
+    suspend fun getAllArticles() {
+        val response= newsRepository.getAllArticles()
+        _allArticles.postValue(response)
+
+    }
+
+
+
+
+
+
+
 
 
 }

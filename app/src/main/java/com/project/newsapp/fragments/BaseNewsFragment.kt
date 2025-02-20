@@ -1,9 +1,12 @@
 package com.project.newsapp.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,6 +71,28 @@ class BaseNewsFragment : Fragment() {
 
 
         setUpRecyclerView()
+
+
+        // when news item is clicked it will open on an external browser
+        newsAdapter.setOnItemClickListener { article ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
+            startActivity(intent)
+        }
+
+        // long press the article to save it
+        newsAdapter.setOnItemLongClickListener { article->
+            newsViewModel.insertArticle(article)
+            Toast.makeText(requireContext(), "Saved: ${article.title}", Toast.LENGTH_SHORT).show()
+
+        }
+
+        //handle clicks on news items
+        newsAdapter.setOnItemClickListener { article ->
+            Toast.makeText(requireContext(), "Clicked: ${article.title}", Toast.LENGTH_SHORT).show()
+        }
+
+
+
 
 
        // setupSwipeRefresh()
@@ -172,6 +197,13 @@ class BaseNewsFragment : Fragment() {
     private fun performAction(category: String) {
         newsViewModel.getBaseNewsCategory("us", category)
     }
+
+
+
+
+
+
+
 
 
 }

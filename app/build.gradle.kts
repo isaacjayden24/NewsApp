@@ -5,6 +5,10 @@ plugins {
 
     alias(libs.plugins.kotlin.kapt)
 
+    alias(libs.plugins.androidx.navigation.safe.args)
+
+
+
 
 }
 
@@ -38,6 +42,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -55,6 +62,9 @@ dependencies {
     implementation (libs.androidx.room.runtime)
     implementation (libs.androidx.room.ktx)
     kapt (libs.androidx.room.compiler)
+    implementation("androidx.webkit:webkit:1.8.0")
+
+
 
     // add swipe refresh dependency
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")

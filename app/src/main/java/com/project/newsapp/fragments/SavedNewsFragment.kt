@@ -1,11 +1,23 @@
 package com.project.newsapp.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.coroutineScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.project.newsapp.NewsApp
 import com.project.newsapp.R
+import com.project.newsapp.adapter.SavedNewsAdapter
+import com.project.newsapp.models.Article
+import com.project.newsapp.ui.NewsViewModel
+import com.project.newsapp.ui.NewsViewModelFactory
+import kotlinx.coroutines.launch
 
 
 /**
@@ -15,6 +27,13 @@ import com.project.newsapp.R
  */
 class SavedNewsFragment : Fragment() {
 
+    private lateinit var savedNewsAdapter: SavedNewsAdapter
+    private lateinit var recyclerView: RecyclerView
+
+
+    private val newsViewModel: NewsViewModel by viewModels {
+        NewsViewModelFactory((requireActivity().application as NewsApp).newsRepository)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,5 +52,57 @@ class SavedNewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        recyclerView = view.findViewById(R.id.savedNewsRecyclerView)
+        setUpRecyclerView()
+
+
+        // when news item is clicked it will open on an external browser
+        savedNewsAdapter.setOnItemClickListener { article ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
+            startActivity(intent)
+        }
+
+
+        // when news item is long pressed it deletes the news item
+        savedNewsAdapter.setOnItemLongClickListener { article ->
+            deleteArticle(article)
+        }
+
+        //observe live data for all articles and pass to recyclerview
+        newsViewModel.allArticles.observe(viewLifecycleOwner) { articles ->
+            savedNewsAdapter.submitList(articles)
+        }
+
+        //get all articles from a coroutine
+
+        lifecycle.coroutineScope.launch {
+            getAllArticles()
+        }
+
+
+
     }
+
+
+
+
+
+    //function to set up recyclerView
+    private fun setUpRecyclerView() {
+        savedNewsAdapter = SavedNewsAdapter()
+        recyclerView.adapter = savedNewsAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+    }
+
+    //function to get all articles
+   suspend  fun getAllArticles() {
+        newsViewModel.getAllArticles()
+    }
+
+
+    // function to delete an article
+    private fun deleteArticle(article: Article) {
+        newsViewModel.deleteArticle(article)
+    }
+
 }
