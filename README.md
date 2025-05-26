@@ -2,7 +2,7 @@
 
 # NewsApp
 
-> This project is currently a 🚧 **work in progress**.
+
 
 **NewsApp** is a modern Android application that fetches and displays the latest news from the [News API](https://newsapi.org/). 
 Built with Kotlin , it follows the principles of Modern Android Development (MAD) and showcases best practices in architecture, UI design, and data handling.
