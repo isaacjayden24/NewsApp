@@ -13,19 +13,19 @@ Built with Kotlin , it follows the principles of Modern Android Development (MAD
 
 
 ### Home screen
-<img src="Docs/screenshot/home.jpg" width="250"/><img src="Docs/screenshot/homedark.jpg" width="250"/>
+<img src="Docs/screenshot/home.jpg" width="250"/> <img src="Docs/screenshot/homedark.jpg" width="250"/>
 
 ### Category screen
-<img src="Docs/screenshot/tech.jpg" width="250"/><img src="Docs/screenshot/categorydark.jpg" width="250"/>
+<img src="Docs/screenshot/tech.jpg" width="250"/> <img src="Docs/screenshot/categorydark.jpg" width="250"/>
 
 
 ### Bookmark screen
-<img src="Docs/screenshot/saved.jpg" width="250"/><img src="Docs/screenshot/bookmarkdark.jpg" width="250"/>
+<img src="Docs/screenshot/saved.jpg" width="250"/> <img src="Docs/screenshot/bookmarkdark.jpg" width="250"/>
 
 
 ### Search screen 
 
-<img src="Docs/screenshot/search.jpg" width ="250"/><img src="Docs/screenshot/searchdark.jpg" width ="250"/>
+<img src="Docs/screenshot/search.jpg" width ="250"/> <img src="Docs/screenshot/searchdark.jpg" width ="250"/>
 
 
 
