@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-// val db to access functions of our database
+// val database is passed  to access functions of our database
 class NewsRepository(private val database: ArticleDatabase) {
 
     //get base news from the api

@@ -28,7 +28,7 @@ interface NewsApi {
         @Query("category") category: String,
         @Query("pageSize") pageSize:Int,
         @Query("country") countryCode:String="us",
-        @Query("page") page:Int, // TODO : FIX THIS
+        @Query("page") page:Int,
         @Query("apiKey") apiKey:String=API_KEY
 
     ):NewsResponse

@@ -2,6 +2,7 @@ package com.project.newsapp
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -10,11 +11,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    /*lateinit var viewModel: NewsViewModel*/
+
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
         try {
 
@@ -34,19 +37,28 @@ class MainActivity : AppCompatActivity() {
             // Setup bottom navigation with NavController
             bottomNavigationView.setupWithNavController(navController)
 
+            // Hide BottomNav when in SplashScreenFragment
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if (destination.id == R.id.splashFragment) {
+                    bottomNavigationView.visibility = View.GONE
+                } else {
+
+                    bottomNavigationView.visibility = View.VISIBLE
+                }
+            }
+
+
+
+
             Log.d("MainActivity", "Navigation setup successfully")
         } catch (e: Exception) {
             Log.e("MainActivity", "Error in onCreate", e)
-            // Handle the error appropriately
+            // Handle the error
         }
     }
 }
 
 
 
-       /* // link bottom nav with nav controller
-        val navController = findNavController(R.id.nav_host_fragment)
 
-        bottomNavigationView.setupWithNavController(navController)
-*/
 

@@ -8,32 +8,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.newsapp.NewsApp
 import com.project.newsapp.R
 import com.project.newsapp.adapter.SavedNewsAdapter
 import com.project.newsapp.models.Article
 import com.project.newsapp.ui.NewsViewModel
-import com.project.newsapp.ui.NewsViewModelFactory
 import kotlinx.coroutines.launch
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SavedNewsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class SavedNewsFragment : Fragment() {
 
     private lateinit var savedNewsAdapter: SavedNewsAdapter
     private lateinit var recyclerView: RecyclerView
 
 
+
+
     private val newsViewModel: NewsViewModel by viewModels {
-        NewsViewModelFactory((requireActivity().application as NewsApp).newsRepository)
+        ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
     }
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

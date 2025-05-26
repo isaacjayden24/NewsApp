@@ -12,31 +12,34 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.project.newsapp.R
 import com.project.newsapp.models.Article
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 
 class NewsAdapter
     : ListAdapter<Article, NewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
 
 
-        // declare setonitemclicklistener here
+        // declare setOnItemClicklistener here
         private var onItemClickListener: ((Article) -> Unit)? = null
-    fun setOnItemClickListener(listener: (Article) -> Unit) {
-        onItemClickListener = listener
-    }
+        fun setOnItemClickListener(listener: (Article) -> Unit) {
+                onItemClickListener = listener
+        }
 
 
 
-    //long click listener for saving articles
-    private var onItemLongClickListener: ((Article) -> Unit)? = null
+        //long click listener for saving articles
+        private var onItemLongClickListener: ((Article) -> Unit)? = null
 
-    fun setOnItemLongClickListener(listener: (Article) -> Unit) {
-        onItemLongClickListener = listener
-    }
+        fun setOnItemLongClickListener(listener: (Article) -> Unit) {
+            onItemLongClickListener = listener
+        }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
-        return ArticleViewHolder(view,onItemClickListener,onItemLongClickListener)
-    }
+          override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
+            return ArticleViewHolder(view,onItemClickListener,onItemLongClickListener)
+          }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = getItem(position)
@@ -50,7 +53,7 @@ class NewsAdapter
         private lateinit var authorNameText: TextView
         private lateinit var titleText: TextView
         private lateinit var descriptionText: TextView
-        private lateinit var sourceIcon: ImageView // TO DO: Add source icon
+        private lateinit var sourceIcon: ImageView // TODO: Add source icon
         private lateinit var sourceNameText: TextView
         private lateinit var publishedAtTimeText: TextView
 
@@ -74,11 +77,11 @@ class NewsAdapter
             titleText.text = article.title
             descriptionText.text = article.description
             sourceNameText.text = article.source?.name
-            publishedAtTimeText.text = article.publishedAt
+            // Convert and format publishedAt date
+            publishedAtTimeText.text = formatPublishedDate(article.publishedAt)
 
 
             itemView.setOnClickListener(){
-               // onItemClickListener?.let { it(article) }
                 onItemClickListener?.invoke(article)
 
             }
@@ -98,6 +101,27 @@ class NewsAdapter
 
 
         }
+
+
+
+        private fun formatPublishedDate(publishedAt: String?): String {
+            if (publishedAt.isNullOrEmpty()) return "Unknown date"
+
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+            inputFormat.timeZone = TimeZone.getTimeZone("UTC") // Parse UTC time
+
+            val outputFormat = SimpleDateFormat("MMM d, yyyy 'at' h:mm a", Locale.getDefault())
+
+            return try {
+                val date = inputFormat.parse(publishedAt)
+                if (date != null) outputFormat.format(date) else "Unknown date"
+            } catch (e: Exception) {
+                "Unknown date"
+            }
+        }
+
+
+
     }
 
     // DiffUtil class to efficiently update the list

@@ -5,6 +5,8 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorError">@color/breakingColor</item>
+
+        <item name="colorOnSurface">@color/on_surface_light</item>
     </style>
 
     <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />

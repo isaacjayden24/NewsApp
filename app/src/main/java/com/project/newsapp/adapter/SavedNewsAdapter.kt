@@ -12,15 +12,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.project.newsapp.R
 import com.project.newsapp.models.Article
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 
- class SavedNewsAdapter
+class SavedNewsAdapter
      : ListAdapter<Article, SavedNewsAdapter.ArticleViewHolder>(ArticleDiffCallback()) {
 
 
 
 
-         // declare setonitemclicklistener here for opening article in external browser
+         // declare set OnItemClickListener here for opening article in external browser
          private var onItemClickListener: ((Article) -> Unit)? = null
 
          fun setOnItemClickListener(listener: (Article) -> Unit) {
@@ -28,6 +31,8 @@ import com.project.newsapp.models.Article
           }
 
 
+
+          //long click listener for saving articles
          private var onItemLongClickListener: ((Article) -> Unit)? = null
           fun setOnItemLongClickListener(listener: (Article) -> Unit) {
                 onItemLongClickListener = listener
@@ -57,7 +62,7 @@ import com.project.newsapp.models.Article
         private lateinit var authorNameText: TextView
         private lateinit var titleText: TextView
         private lateinit var descriptionText: TextView
-        private lateinit var sourceIcon: ImageView // TO DO: Add source icon
+        private lateinit var sourceIcon: ImageView
         private lateinit var sourceNameText: TextView
         private lateinit var publishedAtTimeText: TextView
 
@@ -81,7 +86,7 @@ import com.project.newsapp.models.Article
             titleText.text = article.title
             descriptionText.text = article.description
             sourceNameText.text = article.source?.name
-            publishedAtTimeText.text = article.publishedAt
+            publishedAtTimeText.text = formatPublishedDate(article.publishedAt) // Convert and format publishedAt date
 
 
 
@@ -96,17 +101,31 @@ import com.project.newsapp.models.Article
                 true
             }
 
-
-
-
-
-
-
-
-
-
-
         }
+
+
+        //time format function
+
+        private fun formatPublishedDate(publishedAt: String?): String {
+            if (publishedAt.isNullOrEmpty()) return "Unknown date"
+
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+            inputFormat.timeZone = TimeZone.getTimeZone("UTC") // Parse UTC time
+
+            val outputFormat = SimpleDateFormat("MMM d, yyyy 'at' h:mm a", Locale.getDefault())
+
+            return try {
+                val date = inputFormat.parse(publishedAt)
+                if (date != null) outputFormat.format(date) else "Unknown date"
+            } catch (e: Exception) {
+                "Unknown date"
+            }
+        }
+
+
+
+
+
     }
 
     // DiffUtil class to efficiently update the list

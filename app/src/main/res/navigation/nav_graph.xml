@@ -3,47 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/baseNewsFragment">
-
+    app:startDestination="@id/splashFragment">
     <fragment
-        android:id="@+id/baseNewsFragment"
+        android:id="@+id/splashFragment"
+        android:name="com.project.newsapp.fragments.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_baseNewsFragment2"
+            app:destination="@id/baseNewsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/baseNewsFragment2"
         android:name="com.project.newsapp.fragments.BaseNewsFragment"
         android:label="fragment_basenews"
         tools:layout="@layout/fragment_basenews" >
         <action
-            android:id="@+id/action_baseNewsFragment_to_articleFragment"
+            android:id="@+id/action_baseNewsFragment2_to_articleFragment"
             app:destination="@id/articleFragment" />
     </fragment>
     <fragment
-        android:id="@+id/searchNewsFragment"
+        android:id="@+id/searchNewsFragment2"
         android:name="com.project.newsapp.fragments.SearchNewsFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_searchNewsFragment_to_articleFragment"
+            android:id="@+id/action_searchNewsFragment2_to_articleFragment"
             app:destination="@id/articleFragment" />
     </fragment>
     <fragment
-        android:id="@+id/savedNewsFragment"
+        android:id="@+id/savedNewsFragment2"
         android:name="com.project.newsapp.fragments.SavedNewsFragment"
         android:label="fragment_saved"
         tools:layout="@layout/fragment_saved" >
         <action
-            android:id="@+id/action_savedNewsFragment_to_articleFragment"
+            android:id="@+id/action_savedNewsFragment2_to_articleFragment"
             app:destination="@id/articleFragment" />
     </fragment>
-
-
     <fragment
         android:id="@+id/articleFragment"
         android:name="com.project.newsapp.fragments.ArticleFragment"
         android:label="fragment_article"
-        tools:layout="@layout/fragment_article">
-        <argument
-            android:name="article"
-            app:argType="com.project.newsapp.models.Article"
-            />
-    </fragment>
-
-
+        tools:layout="@layout/fragment_article" />
 </navigation>

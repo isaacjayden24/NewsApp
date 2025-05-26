@@ -31,7 +31,7 @@ import com.project.newsapp.models.Article
            context.applicationContext,
            ArticleDatabase::class.java,
            "article_db.db"
-          ).fallbackToDestructiveMigration() // This will delete and recreate the database
+          ).fallbackToDestructiveMigration() //TODO: Remove this before production
               .build()
 
 

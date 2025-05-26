@@ -9,22 +9,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.tabs.TabLayout
-import com.project.newsapp.NewsApp
 import com.project.newsapp.R
 import com.project.newsapp.adapter.NewsAdapter
 import com.project.newsapp.ui.NewsViewModel
-import com.project.newsapp.ui.NewsViewModelFactory
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BaseNewsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class BaseNewsFragment : Fragment() {
 
 
@@ -40,9 +35,10 @@ class BaseNewsFragment : Fragment() {
 
 
 
-    private val newsViewModel: NewsViewModel by viewModels {
-       NewsViewModelFactory((requireActivity().application as NewsApp).newsRepository)
-    }
+
+   private val newsViewModel: NewsViewModel by viewModels {
+       ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+   }
 
 
 
@@ -86,10 +82,7 @@ class BaseNewsFragment : Fragment() {
 
         }
 
-        //handle clicks on news items
-        newsAdapter.setOnItemClickListener { article ->
-            Toast.makeText(requireContext(), "Clicked: ${article.title}", Toast.LENGTH_SHORT).show()
-        }
+
 
 
 
@@ -103,7 +96,7 @@ class BaseNewsFragment : Fragment() {
 
         //observe base news categories for refreshing
         newsViewModel.baseNewsRefresh.observe(viewLifecycleOwner) { articles ->
-            newsAdapter.submitList(articles) // TODO : Added code here
+            newsAdapter.submitList(articles)
 
         }
 
@@ -168,11 +161,11 @@ class BaseNewsFragment : Fragment() {
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                // Handle unselected state if needed
+                // Handle unselected state
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                // Handle reselection if needed
+                // Handle reselection
             }
         })
 

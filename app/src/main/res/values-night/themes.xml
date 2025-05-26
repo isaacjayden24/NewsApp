@@ -3,5 +3,21 @@
     <style name="Base.Theme.NewsApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+        <item name="android:windowBackground">@color/background_light</item>
+        <item name="colorSurface">@color/surface_light</item>
+        <item name="colorOnBackground">@color/colorPrimary</item>
+
+        <!-- Primary Colors -->
+        <item name="colorPrimary">#FF000000</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+
+
+
+
+
+
+        <item name="colorOnSurface">@color/on_surface_light</item>
     </style>
 </resources>

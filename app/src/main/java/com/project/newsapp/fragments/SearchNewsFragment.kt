@@ -15,33 +15,29 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.project.newsapp.NewsApp
 import com.project.newsapp.R
 import com.project.newsapp.adapter.NewsAdapter
 import com.project.newsapp.ui.NewsViewModel
-import com.project.newsapp.ui.NewsViewModelFactory
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SearchNewsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class SearchNewsFragment : Fragment() {
 
     private lateinit var newsAdapter: NewsAdapter // Declare the news  adapter here
-    private  lateinit var recyclerView: RecyclerView // Declare the recylerview here
+    private  lateinit var recyclerView: RecyclerView // Declare the recyclerView here
     private lateinit var searchEditText: EditText // Declare the search edit text here
     private var debounceJob: Job? = null
 
+
     private val newsViewModel: NewsViewModel by viewModels {
-        NewsViewModelFactory((requireActivity().application as NewsApp).newsRepository)
+        ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
     }
 
 

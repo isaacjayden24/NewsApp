@@ -1,17 +1,21 @@
 package com.project.newsapp.ui
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.project.newsapp.NewsApp
 import com.project.newsapp.models.Article
 import com.project.newsapp.models.NewsResponse
 import com.project.newsapp.repository.NewsRepository
 import kotlinx.coroutines.launch
 
 
-class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
+class NewsViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val database = (application as NewsApp).database
+    val newsRepository by lazy { NewsRepository(database) }
 
     //map to hold list of categories by sortBy
     val categories = listOf("publishedAt", "relevancy", "popularity")
@@ -130,7 +134,7 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
                 val response = newsRepository.getNewsCategory(countryCode, category, baseNewsPage)
                 _baseNewsCategory.postValue(response)
             } catch (e: Exception) {
-                // Handle errors, e.g., no network or API issues
+                // Handle errors no network or API issues
 
                 e.printStackTrace()
             }
@@ -146,7 +150,7 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
                 val response = newsRepository.searchNews(searchQuery, baseNewsPage)
                 _searchNews.postValue(response)
             } catch (e: Exception) {
-                // Handle errors, e.g., no network or API issues
+                // Handle errors no network or API issues
                 e.printStackTrace()
             }
         }
@@ -159,7 +163,7 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
                 val response = newsRepository.searchNewsSorting(searchQuery, sortBy, baseNewsPage)
                 _searchNews.postValue(response)
             } catch (e: Exception) {
-                // Handle errors, e.g., no network or API issues
+                // Handle errors no network or API issues
                 e.printStackTrace()
             }
             }
@@ -171,7 +175,12 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
     // function to insert news article
     fun insertArticle(article: Article) {
         viewModelScope.launch {
-            newsRepository.insertArticle(article)
+
+            try {
+                newsRepository.insertArticle(article)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
         }
     }
 
@@ -203,12 +212,3 @@ class NewsViewModel(val newsRepository: NewsRepository):ViewModel() {
 
 
 
-class NewsViewModelFactory(private val newsRepository: NewsRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(NewsViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return NewsViewModel(newsRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
